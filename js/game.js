@@ -63,14 +63,43 @@ var game = {
 };
 
 function resizeCanvas() {
-  const canvas = document.querySelector("canvas");
+  var gameArea = document.getElementById("screen");
+  var widthToHeight = 900 / 600; // Game's original aspect ratio
+  var newWidth = window.innerWidth;
+  var newHeight = window.innerHeight;
+  var newWidthToHeight = newWidth / newHeight;
+
+  if (newWidthToHeight > widthToHeight) {
+    // Window is wider than game aspect ratio, scale based on height
+    newWidth = newHeight * widthToHeight;
+    gameArea.style.height = newHeight + "px";
+    gameArea.style.width = newWidth + "px";
+  } else {
+    // Window is taller than game aspect ratio, scale based on width
+    newHeight = newWidth / widthToHeight;
+    gameArea.style.width = newWidth + "px";
+    gameArea.style.height = newHeight + "px";
+  }
+
+  // Center the game area
+  gameArea.style.marginTop = -newHeight / 2 + "px";
+  gameArea.style.marginLeft = -newWidth / 2 + "px";
+
+  // Update the canvas size to match the game area
+  var gameCanvas = document.querySelector("canvas");
+  gameCanvas.width = newWidth;
+  gameCanvas.height = newHeight;
+
   // Call MelonJS function to update display size
-  me.video.updateDisplaySize(window.innerWidth, window.innerHeight);
+  me.video.updateDisplaySize(newWidth, newHeight);
+
   // If your game has a method to handle resizing, call it here
   if (typeof game !== "undefined" && typeof game.resize === "function") {
-    game.resize(canvas.width, canvas.height);
+    game.resize(newWidth, newHeight);
   }
 }
 
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas(); // Initial call to set canvas size
+window.addEventListener("resize", resizeCanvas, false);
+window.addEventListener("orientationchange", resizeCanvas, false);
+// Initial call to set canvas size
+resizeCanvas();
