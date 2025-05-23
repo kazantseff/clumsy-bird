@@ -61,3 +61,16 @@ var game = {
     me.state.change(me.state.MENU);
   },
 };
+
+function resizeCanvas() {
+  const canvas = document.querySelector("canvas");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  // If your game has a method to handle resizing, call it here
+  if (typeof game !== "undefined" && typeof game.resize === "function") {
+    game.resize(canvas.width, canvas.height);
+  }
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas(); // Initial call to set canvas size
