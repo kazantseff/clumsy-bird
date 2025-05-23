@@ -64,8 +64,8 @@ var game = {
 
 function resizeCanvas() {
   const canvas = document.querySelector("canvas");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  // Call MelonJS function to update display size
+  me.video.updateDisplaySize(window.innerWidth, window.innerHeight);
   // If your game has a method to handle resizing, call it here
   if (typeof game !== "undefined" && typeof game.resize === "function") {
     game.resize(canvas.width, canvas.height);
