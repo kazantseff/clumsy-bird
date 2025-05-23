@@ -31,6 +31,10 @@ body {
   -ms-interpolation-mode: nearest-neighbor;
 }
 
+#screen {
+    height: 100vh;
+}
+
 #share {
   margin: 10px auto;
   text-align: center;
