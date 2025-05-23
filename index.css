@@ -29,6 +29,8 @@ body {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: optimize-contrast;
   -ms-interpolation-mode: nearest-neighbor;
+  width: 100%;
+  height: 100%;
 }
 
 #screen {
